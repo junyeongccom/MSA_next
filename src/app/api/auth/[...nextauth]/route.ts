@@ -8,6 +8,7 @@ interface CustomToken extends JWT {
   accessToken?: string;
   refreshToken?: string;
   expiresAt?: number;
+  idToken?: string;
 }
 
 // Session 타입 확장
@@ -16,6 +17,7 @@ declare module "next-auth" {
     accessToken?: string;
     refreshToken?: string;
     expiresAt?: number;
+    idToken?: string;
   }
 }
 
@@ -41,7 +43,7 @@ export const authOptions: NextAuthOptions = {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
         token.expiresAt = account.expires_at;
-        
+        token.idToken = account.id_token;
         console.log("[NextAuth] JWT 콜백:", { token, account });
       }
       return token;
@@ -55,7 +57,7 @@ export const authOptions: NextAuthOptions = {
       session.accessToken = customToken.accessToken;
       session.refreshToken = customToken.refreshToken;
       session.expiresAt = customToken.expiresAt;
-      
+      session.idToken = customToken.idToken;
       console.log("[NextAuth] Session 콜백:", { session });
       return session;
     },

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Gateway API URL
-const GATEWAY_API_URL = process.env.NEXT_PUBLIC_GATEWAY_API_URL || 'http://localhost:8000';
+const GATEWAY_API_URL = process.env.NEXT_PUBLIC_GATEWAY_API_URL || 'http://localhost:8080';
 
 export default function Home() {
   const { data: session, status, update } = useSession();
@@ -42,7 +42,7 @@ export default function Home() {
 
       // 시나리오 1: axios로 gateway에 접근해서 jose에게 access, refresh 토큰을 넘김
       const response = await axios.post(`${GATEWAY_API_URL}/api/auth/token`, {
-        accessToken: session.accessToken,
+        accessToken: session.idToken,
         refreshToken: session.refreshToken,
         expiresAt: session.expiresAt
       });
